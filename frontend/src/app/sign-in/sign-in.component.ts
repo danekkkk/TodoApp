@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DirectusService } from '../directus.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ErrorResponse } from '../interaces/error';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
   signIn = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(40)])
   });
 
   error: string = "";
@@ -34,19 +35,22 @@ export class SignInComponent {
           await this.router.navigate(["/"])
           await window.location.reload();
 
-        } catch (error: any) {
-          if (error.errors) {
-            switch (error.errors[0].message) {
+        } catch (error) {
+          const errorResponse = error as ErrorResponse;
+          if (errorResponse.errors) {
+            switch (errorResponse.errors[0].message) {
               case 'Invalid user credentials.':
                 this.error = "Invalid user credentials.";
               }
-          } else {
-            this.error = error;
           }
         }
       }
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  resetError() {
+    this.error = '';
   }
 }

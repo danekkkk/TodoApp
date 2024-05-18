@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { DirectusService } from '../directus.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { UserData } from '../interaces/userData';
+import { ErrorResponse } from '../interaces/error';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +13,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  constructor(private directusService: DirectusService) {}
+  constructor(private directusService: DirectusService, private router: Router) {}
 
-  userData: any = null;
+  userData: UserData | null = null;
 
   ngOnInit(): void {
     this.checkLoginStatus();
@@ -22,9 +25,10 @@ export class NavbarComponent {
     try {
       const result = await this.directusService.signOut();
       this.userData = null;
-
-    } catch (error: any) {
-      console.log(error.errors[0].message)
+      this.router.navigate(['sign-in']);
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      console.log(errorResponse.errors[0]);
     }
   }
 
@@ -32,9 +36,10 @@ export class NavbarComponent {
     if (this.directusService.isLoggedIn()) {
       try {
         const result = await this.directusService.getUserData();
-        this.userData = result;
-      } catch (error: any) {
-        console.log(error.errors[0].message)
+        this.userData = result as UserData;
+      } catch (error) {
+        const errorResponse = error as ErrorResponse;
+        console.log(errorResponse.errors[0].message)
       }
     }
   }

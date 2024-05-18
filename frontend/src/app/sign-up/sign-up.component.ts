@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { DirectusService } from '../directus.service';
 import { Router } from '@angular/router';
+import { ErrorResponse } from '../interaces/error';
 
 
 @Component({
@@ -41,14 +42,13 @@ export class SignUpComponent {
           await this.router.navigate(["/"])
           await window.location.reload();
 
-        } catch (error: any) {
-          if (error.errors) {
-            switch (error.errors[0].message) {
+        } catch (error) {
+          const errorResponse = error as ErrorResponse;
+          if (errorResponse.errors) {
+            switch (errorResponse.errors[0].message) {
               case 'Value for field "email" in collection "directus_users" has to be unique.':
                 this.error = "A user with this email already exists. Please try logging in or use a different email address.";
               }
-          } else {
-            this.error = error;
           }
         }
       }

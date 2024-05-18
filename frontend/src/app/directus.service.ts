@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { authentication, createDirectus, createUser, readMe, rest, withOptions } from '@directus/sdk';
+import { authentication, createDirectus, createUser, readItems, readMe, rest, withOptions } from '@directus/sdk';
+import { ErrorResponse } from './interaces/error';
 
 
 @Injectable({
@@ -27,7 +28,8 @@ export class DirectusService {
       
       return result;
     } catch (error) {
-      throw error;
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
     }
   }
 
@@ -41,7 +43,8 @@ export class DirectusService {
 
       return result;
     } catch (error) {
-      throw error;
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
     }
   }
 
@@ -50,15 +53,15 @@ export class DirectusService {
       const result = await this.directus.request(
         withOptions(
           readMe({
-            fields: ["avatar", "email", "first_name", "last_name"],
+            fields: ["id", "avatar", "email", "first_name", "last_name"],
           }),
           { credentials: "include" }
         )
       );
-
       return result;
     } catch (error) {
-      throw error;
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
     }
   }
 
@@ -67,7 +70,8 @@ export class DirectusService {
       const result = await this.directus.logout();
       localStorage.removeItem("tokenExpiration");
     } catch (error) {
-      throw error;
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
     }
   }
 
@@ -81,7 +85,22 @@ export class DirectusService {
     return false;
   }
 
-  logout(): void {
-    localStorage.removeItem("tokenExpiration");
+  async getTodos() {
+    try {
+      const result = await this.directus.request(readItems('Todos', {
+        fields: ['*'],
+          filter: {
+            user_created: {
+              _eq: "$CURRENT_USER"
+            },
+          },
+      }));
+
+      return result;
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
+    }
   }
+
 }

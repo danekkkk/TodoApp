@@ -1,0 +1,11 @@
+<div *ngIf="!directusService.isLoggedIn()" class="text-center p-2" role="alert">
+    You must be logged in to access this page. Please <a href="/sign-in">sign in</a>.
+</div>
+
+<div *ngIf="directusService.isLoggedIn()">
+    <h1>Todo:</h1>
+    <div *ngFor="let todo of todos">
+        <p>{{todo.Title}}</p>
+        <small>{{todo.Description}}</small>
+    </div>
+</div>
