@@ -1,13 +1,25 @@
 <div *ngIf="directusService.isLoggedIn()" class="mt-5 mb-5 col-12">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item "><a href="#" class="link-success">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{todoDetails?.Title}}</li>
         </ol>
       </nav>
     <p class="text-secondary text-end" [ngStyle]="{ 'font-size': '12px'}">created {{ createdAgo }}</p>
-    <p class="text-secondary text-end" *ngIf="updatedAgo" [ngStyle]="{ 'font-size': '12px', 'margin-top': '-16px'}">updated {{ createdAgo }}</p>
-    <h1 class="h1">{{todoDetails?.Title}}</h1>
+    <p class="text-secondary text-end" *ngIf="updatedAgo" [ngStyle]="{ 'font-size': '12px', 'margin-top': '-16px'}">updated {{ updatedAgo }}</p>
+    <div class="col-12 d-flex justify-content-between align-items-center" style="margin-top: -16px;">
+      <h1 class="h1 mt-2">{{todoDetails?.Title}}</h1>
+      <div class="dropdown">
+        <button class="btn btn-sm rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/options.jpeg" alt="options" style="width: 32px; height: 32px;">
+        </button>
+        <ul class="dropdown-menu" style="cursor: pointer;">
+          <li><a class="dropdown-item text-danger" (click)="deleteTodo()">Delete</a></li>
+          <li><a class="dropdown-item" (click)="editTodo()">Edit</a></li>
+          <li><a class="dropdown-item" (click)="markAsDone()">Mark as done</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="my-3">
         <markdown id="markdown" [data]="todoDetails?.Description"></markdown>
     </div>

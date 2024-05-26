@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Todo } from '../../interaces/todo';
 import { MarkdownComponent, MarkdownService } from 'ngx-markdown';
 import { formatDistanceToNow } from 'date-fns';
+import { ErrorResponse } from '../../interaces/error';
 
 @Component({
   selector: 'app-todo-details',
@@ -63,5 +64,24 @@ export class TodoDetailsComponent implements OnInit {
     const currentDate = new Date();
     const targetDate = new Date(date);
     return formatDistanceToNow(targetDate, { addSuffix: true });
+  }
+
+  async deleteTodo() {
+    try {
+      await this.directusService.deleteTodo(this.todoId);
+      await this.router.navigate(['']);
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      alert(errorResponse);
+    }
+  }
+
+  async editTodo() {
+    await this.router.navigate(['edit', this.todoId]);
+  }
+
+  async markAsDone() {
+    await this.directusService.markAsDoneTodo(this.todoId);
+    await this.router.navigate(['/']);
   }
 }

@@ -1,10 +1,10 @@
 <form
-  [formGroup]="createTodo"
+  [formGroup]="editTodo"
   style="min-height: 90vh;"
   autocomplete="false"
 >
   <div class="shadow-lg rounded-4 overflow-hidden col-12 p-4" style="margin-top: 100px; margin-bottom: 40px;">
-    <h1 class="h1 w-bold">Create new todo</h1>
+    <h1 class="h1 w-bold">Edit todo</h1>
     <div formGroupName="details">
       <div class="mt-4">
         <label for="title">Title</label>
@@ -96,9 +96,9 @@
       <button
         class="btn btn-success w-100"
         (click)="onSubmit()"
-        [disabled]="createTodo.invalid"
+        [disabled]="editTodo.invalid"
       >
-        Create todo
+        Edit todo
       </button>
 
     </div>
