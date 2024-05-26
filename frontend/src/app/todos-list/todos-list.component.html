@@ -4,8 +4,22 @@
 
 <div *ngIf="directusService.isLoggedIn()">
     <h1>Todo:</h1>
-    <div *ngFor="let todo of todos">
-        <p>{{todo.Title}}</p>
-        <small>{{todo.Description}}</small>
+    <div class="d-flex flex-nowrap gap-3">
+        <div class="col-4 border border-2 border-danger rounded-3 p-3">
+            <div *ngFor="let todo of incompletedTodos">
+                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
+            </div>
+        </div>
+        <div class="col-4 border border-2 border-success rounded-3 p-3">
+            <div *ngFor="let todo of todayTodos">
+                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
+            </div>
+        </div>
+        <div class="col-4 border border-2 border-warning rounded-3 p-3">
+            <div *ngFor="let todo of incomingTodos">
+                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
+            </div>
+        </div>
     </div>
+    
 </div>
