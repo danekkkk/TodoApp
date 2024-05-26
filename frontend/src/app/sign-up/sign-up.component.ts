@@ -19,20 +19,17 @@ import { ErrorResponse } from '../../interaces/error';
 })
 export class SignUpComponent {
   signUp = new FormGroup({
-    first_name: new FormControl('', Validators.required),
-    last_name: new FormControl('', Validators.required),
+    first_name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    last_name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      Validators.maxLength(40),
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
     ]),
     repeat_password: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
     ]),
   });
 
@@ -46,7 +43,11 @@ export class SignUpComponent {
   async onSubmit() {
     if (this.signUp.valid) {
       this.error = '';
-      const { email, password, first_name, last_name } = this.signUp.value;
+      const { email, password, repeat_password, first_name, last_name } = this.signUp.value;
+      if (password != repeat_password) {
+        this.error = "Passwords do not match!"
+        return;
+      }
       if (email && password && first_name && last_name) {
         try {
           const result = await this.directusService.signUpUser(
