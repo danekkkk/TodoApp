@@ -40,11 +40,11 @@ export class TodosListComponent implements OnInit {
   filterTodosByDeadline() {
     this.todos.forEach(todo => {
       if (todo.Deadline < this.today) {
-        this.incomingTodos.push(todo);
+        this.incompletedTodos.push(todo);
       } else if (todo.Deadline === this.today) {
         this.todayTodos.push(todo);
       } else {
-        this.incompletedTodos.push(todo);
+        this.incomingTodos.push(todo);
       }
     });
   }
