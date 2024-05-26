@@ -103,4 +103,49 @@ export class DirectusService {
     }
   }
 
+<<<<<<< Updated upstream
+=======
+  async getTodoDetails(id: string) {
+    try {
+      const result = await this.directus.request(
+        readItem('Todos', id, {
+          fields: ['*'],
+          filter: {
+            user_created: {
+              _eq: '$CURRENT_USER',
+            },
+          },
+        })
+      );
+
+      return result;
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
+    }
+  }
+
+  async createTodo(todo: {
+    title: string;
+    description: string;
+    isImportant: boolean;
+    deadline: Date | string;
+  }) {
+    try {
+      const result = await this.directus.request(
+        createItem('Todos', {
+          Title: todo.title,
+          Description: todo.description,
+          isImportant: todo.isImportant,
+          Deadline: todo.deadline,
+        })
+      );
+
+      return result;
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      throw errorResponse;
+    }
+  }
+>>>>>>> Stashed changes
 }

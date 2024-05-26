@@ -1,0 +1,15 @@
+<div *ngIf="directusService.isLoggedIn()" class="mt-5 mb-5 col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{todoDetails?.Title}}</li>
+        </ol>
+      </nav>
+    <p class="text-secondary text-end" [ngStyle]="{ 'font-size': '12px'}">created {{ createdAgo }}</p>
+    <p class="text-secondary text-end" *ngIf="updatedAgo" [ngStyle]="{ 'font-size': '12px', 'margin-top': '-16px'}">updated {{ createdAgo }}</p>
+    <h1 class="h1">{{todoDetails?.Title}}</h1>
+    <div class="my-3">
+        <markdown id="markdown" [data]="todoDetails?.Description"></markdown>
+    </div>
+    
+</div>
