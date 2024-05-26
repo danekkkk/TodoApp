@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +17,7 @@ import { ErrorResponse } from '../../interaces/error';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   signIn = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -36,6 +36,10 @@ export class SignInComponent {
     private directusService: DirectusService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    if (this.directusService.isLoggedIn()) this.router.navigate(['']);
+  }
 
   async onSubmit() {
     if (this.signIn.valid) {
