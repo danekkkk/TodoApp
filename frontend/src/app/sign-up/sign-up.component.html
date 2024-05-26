@@ -16,7 +16,27 @@
               type="text"
               formControlName="first_name"
               class="form-control"
+              [ngClass]="{
+                'border-danger':
+                  signUp.get('first_name')?.invalid &&
+                  (signUp.get('first_name')?.dirty ||
+                    signUp.get('first_name')?.touched)
+              }"
+              (input)="resetError()"
             />
+            <div
+              *ngIf="
+                signUp.get('first_name')?.invalid &&
+                (signUp.get('first_name')?.dirty ||
+                  signUp.get('first_name')?.touched)
+              "
+            >
+              <small
+                class="text-danger"
+                *ngIf="signUp.get('first_name')?.errors?.['required']"
+                >First name is required.</small
+              >
+            </div>
           </div>
           <div class="col-6">
             <label for="last_name" class="form-label">Last name</label>
@@ -25,7 +45,27 @@
               type="text"
               formControlName="last_name"
               class="form-control"
+              [ngClass]="{
+                'border-danger':
+                  signUp.get('last_name')?.invalid &&
+                  (signUp.get('last_name')?.dirty ||
+                    signUp.get('last_name')?.touched)
+              }"
+              (input)="resetError()"
             />
+            <div
+              *ngIf="
+                signUp.get('last_name')?.invalid &&
+                (signUp.get('last_name')?.dirty ||
+                  signUp.get('last_name')?.touched)
+              "
+            >
+              <small
+                class="text-danger"
+                *ngIf="signUp.get('last_name')?.errors?.['required']"
+                >Last name is required.</small
+              >
+            </div>
           </div>
         </div>
         <div class="mb-3">
@@ -35,7 +75,35 @@
             type="email"
             formControlName="email"
             class="form-control"
+            [ngClass]="{
+              'border-danger':
+                signUp.get('email')?.invalid &&
+                (signUp.get('email')?.dirty || signUp.get('email')?.touched)
+            }"
+            (input)="resetError()"
           />
+          <div
+            *ngIf="
+              signUp.get('email')?.invalid &&
+              (signUp.get('email')?.dirty || signUp.get('email')?.touched)
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('email')?.errors?.['required']"
+              >Email is required.</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('email')?.errors?.['email']"
+              >Email must be a valid email address.</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('email')?.errors?.['maxlength']"
+              >Email cannot be longer than 40 characters.</small
+            >
+          </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -44,7 +112,31 @@
             type="password"
             formControlName="password"
             class="form-control"
+            [ngClass]="{
+              'border-danger':
+                signUp.get('password')?.invalid &&
+                (signUp.get('password')?.dirty ||
+                  signUp.get('password')?.touched)
+            }"
+            (input)="resetError()"
           />
+          <div
+            *ngIf="
+              signUp.get('password')?.invalid &&
+              (signUp.get('password')?.dirty || signUp.get('password')?.touched)
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('password')?.errors?.['required']"
+              >Password is required.</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('password')?.errors?.['maxlength']"
+              >Password cannot be longer than 40 characters.</small
+            >
+          </div>
         </div>
         <div class="mb-3">
           <label for="repeat_password" class="form-label"
@@ -55,7 +147,32 @@
             type="password"
             formControlName="repeat_password"
             class="form-control"
+            [ngClass]="{
+              'border-danger':
+                signUp.get('repeat_password')?.invalid &&
+                (signUp.get('repeat_password')?.dirty ||
+                  signUp.get('repeat_password')?.touched)
+            }"
+            (input)="resetError()"
           />
+          <div
+            *ngIf="
+              signUp.get('repeat_password')?.invalid &&
+              (signUp.get('repeat_password')?.dirty ||
+                signUp.get('repeat_password')?.touched)
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('repeat_password')?.errors?.['required']"
+              >Repeat password is required.</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="signUp.get('repeat_password')?.errors?.['maxlength']"
+              >Password cannot be longer than 40 characters.</small
+            >
+          </div>
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="terms" required />
@@ -68,7 +185,7 @@
           Create Account
         </button>
         <p class="text-center mt-3">
-          Already have an account? <a href="/sign-in">Sign in</a>
+          Already have an account? <a routerLink="/sign-in">Sign in</a>
         </p>
       </form>
     </div>

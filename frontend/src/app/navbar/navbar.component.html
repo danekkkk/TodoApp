@@ -22,44 +22,31 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="accountDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0 d-flex align-items-center">
+          <li class="nav-item" *ngIf="userData == null">
+            <a class="nav-link" href="/sign-in">
               <img
-                src="assets/account_icon.png"
+                src="assets/login_icon.png"
                 alt="Account"
-                style="width: 24px; height: 24px"
+                style="width: 28px; height: 28px"
               />
             </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="accountDropdown"
+          </li>
+          <li class="nav-item" *ngIf="userData != null">
+            <a class="nav-link" href="/">{{ userData.first_name }}</a>
+          </li>
+          <li class="nav-item" *ngIf="userData != null">
+            <span
+              class="nav-link"
+              [style.cursor]="'pointer'"
+              (click)="logOut()"
             >
-              <li *ngIf="userData == null">
-                <a class="dropdown-item" href="/sign-in">Sign in</a>
-              </li>
-              <li *ngIf="userData == null">
-                <a class="dropdown-item" href="/sign-up">Register</a>
-              </li>
-              <li *ngIf="userData != null">
-                <a class="dropdown-item" href="/">{{ userData.first_name }}</a>
-              </li>
-              <li *ngIf="userData != null">
-                <span
-                  class="dropdown-item"
-                  [style.cursor]="'pointer'"
-                  (click)="logOut()"
-                  >Sign out</span
-                >
-              </li>
-            </ul>
+              <img
+                src="assets/logout_icon.png"
+                alt="Logout"
+                style="width: 28px; height: 28px"
+              />
+            </span>
           </li>
         </ul>
       </div>
