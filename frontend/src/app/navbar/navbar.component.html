@@ -1,32 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container ">
-    <a class="navbar-brand" href="#">Todo app</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbar"
-      aria-controls="navbar"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-        <li class="nav-item" *ngIf="userData == null">
-          <a class="nav-link" href="/sign-in">Sign in</a>
-        </li>
-        <li class="nav-item" *ngIf="userData != null">
-          <a class="nav-link" href="/">{{userData.first_name}}</a>
-        </li>
-        <li class="nav-item" *ngIf="userData != null">
-          <span class="nav-link" [style.cursor]="'pointer'" (click)="logOut()">
-            Sign out
-          </span>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center w-100 p-2">
+      <div class="d-flex justify-content-center w-100">
+        <a class="navbar-brand" href="#">
+          <img
+            src="assets/todo_logo.webp"
+            alt="Logo"
+            style="width: 180px; height: auto"
+          />
+        </a>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar"
+        aria-controls="navbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="accountDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="assets/account_icon.png"
+                alt="Account"
+                style="width: 24px; height: 24px"
+              />
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="accountDropdown"
+            >
+              <li *ngIf="userData == null">
+                <a class="dropdown-item" href="/sign-in">Sign in</a>
+              </li>
+              <li *ngIf="userData == null">
+                <a class="dropdown-item" href="/register">Register</a>
+              </li>
+              <li *ngIf="userData != null">
+                <a class="dropdown-item" href="/">{{ userData.first_name }}</a>
+              </li>
+              <li *ngIf="userData != null">
+                <span
+                  class="dropdown-item"
+                  [style.cursor]="'pointer'"
+                  (click)="logOut()"
+                  >Sign out</span
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
