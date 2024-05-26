@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './todos-list.component.html',
-  styleUrls: ['./todos-list.component.css']
+  styleUrls: ['./todos-list.component.css'],
 })
 export class TodosListComponent implements OnInit {
   today: string;
@@ -38,7 +38,7 @@ export class TodosListComponent implements OnInit {
   }
 
   filterTodosByDeadline() {
-    this.todos.forEach(todo => {
+    this.todos.forEach((todo) => {
       if (todo.Deadline < this.today) {
         this.incompletedTodos.push(todo);
       } else if (todo.Deadline === this.today) {
@@ -50,6 +50,6 @@ export class TodosListComponent implements OnInit {
   }
 
   todoDetails(todo: Todo): void {
-    this.router.navigate(["details", todo.id])
+    this.router.navigate(['details', todo.id]);
   }
 }

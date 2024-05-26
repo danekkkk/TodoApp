@@ -1,25 +1,101 @@
-<div *ngIf="!directusService.isLoggedIn()" class="text-center p-2" role="alert">
-    You must be logged in to access this page. Please <a href="/sign-in">sign in</a>.
+<div
+  *ngIf="!directusService.isLoggedIn()"
+  class="d-flex justify-content-center align-items-start vh-100"
+>
+  <div
+    class="alert alert-warning text-center mt-5"
+    role="alert"
+    style="width: 50%; margin-top: 20vh"
+  >
+    <strong>Warning!</strong> You must be logged in to access this page. Please
+    <a href="/sign-in" class="alert-link">sign in</a>.
+  </div>
 </div>
 
 <div *ngIf="directusService.isLoggedIn()">
-    <h1>Todo:</h1>
-    <div class="d-flex flex-row justify-content-center gap-2">
-        <div class="col-4 border border-2 border-danger rounded-3">
-            <div *ngFor="let todo of incompletedTodos">
-                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
-            </div>
+  <div class="d-flex justify-content-end mt-5">
+    <a class="btn btn-success" href="/create">Add Task</a>
+  </div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#today">Today</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#upcoming">Upcoming</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#completed">Completed</a>
+    </li>
+  </ul>
+  <div class="mt-4">
+    <div id="today" class="mb-4">
+      <h2 class="text-danger">Today's Tasks</h2>
+      <div
+        *ngFor="let todo of todayTodos"
+        class="d-flex justify-content-between align-items-center border-bottom py-2"
+        style="cursor: pointer"
+      >
+        <div>
+          <img
+            src="assets/check_icon.png"
+            alt="Check icon"
+            class="me-2"
+            style="width: 30px; height: auto"
+          />
+          <span (click)="todoDetails(todo)">{{ todo.Title }}</span>
         </div>
-        <div class="col-4 border border-2 border-success rounded-3">
-            <div *ngFor="let todo of todayTodos">
-                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
-            </div>
+        <div class="text-end">
+          <small class="text-muted">{{
+            todo.Deadline | date : "shortDate"
+          }}</small>
         </div>
-        <div class="col-4 border border-2 border-warning rounded-3">
-            <div *ngFor="let todo of incomingTodos">
-                <p (click)="todoDetails(todo)">{{todo.Title}}</p>
-            </div>
-        </div>
-        
+      </div>
     </div>
+    <div id="upcoming" class="mb-4">
+      <h2 class="text-warning">Upcoming Tasks</h2>
+      <div
+        *ngFor="let todo of incomingTodos"
+        class="d-flex justify-content-between align-items-center border-bottom py-2"
+        style="cursor: pointer"
+      >
+        <div>
+          <img
+            src="assets/check_icon.png"
+            alt="Check icon"
+            class="me-2"
+            style="width: 30px; height: auto"
+          />
+          <span (click)="todoDetails(todo)">{{ todo.Title }}</span>
+        </div>
+        <div class="text-end">
+          <small class="text-muted">{{
+            todo.Deadline | date : "shortDate"
+          }}</small>
+        </div>
+      </div>
+    </div>
+    <div id="completed">
+      <h2 class="text-success">Completed Tasks</h2>
+      <div
+        *ngFor="let todo of incompletedTodos"
+        class="d-flex justify-content-between align-items-center border-bottom py-2"
+        style="cursor: pointer"
+      >
+        <div>
+          <img
+            src="assets/check_icon.png"
+            alt="Check icon"
+            class="me-2"
+            style="width: 30px; height: auto"
+          />
+          <span (click)="todoDetails(todo)">{{ todo.Title }}</span>
+        </div>
+        <div class="text-end">
+          <small class="text-muted"
+            >Completed on {{ todo.Deadline | date : "shortDate" }}</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
