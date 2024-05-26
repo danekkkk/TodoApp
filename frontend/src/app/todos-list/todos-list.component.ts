@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DirectusService } from '../directus.service';
 import { ErrorResponse } from '../interaces/error';
 import { Todo } from '../interaces/todo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todos-list',
@@ -12,20 +13,43 @@ import { Todo } from '../interaces/todo';
   styleUrl: './todos-list.component.css'
 })
 export class TodosListComponent implements OnInit {
-  constructor(public directusService: DirectusService) {}
+  today: string;
+  private todos: Todo[] = [];
+  incompletedTodos: Todo[] = [];
+  todayTodos: Todo[] = [];
+  incomingTodos: Todo[] = [];
 
-  todos: Todo[] = [];
+  constructor(public directusService: DirectusService, private router: Router) {
+    this.today = new Date().toISOString().split('T')[0];
+  }
 
   async ngOnInit() {
     if (this.directusService.isLoggedIn()) {
       try {
         const result = await this.directusService.getTodos();
         this.todos = result as Todo[];
-        console.log(result)
+
+        this.filterTodosByDeadline();
       } catch (error) {
         const errorResponse = error as ErrorResponse;
         console.log(errorResponse.errors[0].message);
       }
     }
+  }
+
+  filterTodosByDeadline() {
+    this.todos.forEach(todo => {
+      if (todo.Deadline < this.today) {
+        this.incompletedTodos.push(todo);
+      } else if (todo.Deadline === this.today) {
+        this.todayTodos.push(todo);
+      } else {
+        this.incomingTodos.push(todo);
+      }
+    });
+  }
+
+  todoDetails(todo: Todo): void {
+    this.router.navigate(["/details", todo.id])
   }
 }
