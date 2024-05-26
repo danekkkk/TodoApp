@@ -8,7 +8,7 @@ import {
 import { DirectusService } from '../directus.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ErrorResponse } from '../interaces/error';
+import { ErrorResponse } from '../../interaces/error';
 
 @Component({
   selector: 'app-sign-up',

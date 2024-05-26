@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { authentication, createDirectus, createUser, readItems, readMe, rest, withOptions } from '@directus/sdk';
-import { ErrorResponse } from './interaces/error';
+import { authentication, createDirectus, createItem, createUser, readItem, readItems, readMe, rest, withOptions } from '@directus/sdk';
+import { ErrorResponse } from '../interaces/error';
 
 
 @Injectable({
@@ -103,8 +103,6 @@ export class DirectusService {
     }
   }
 
-<<<<<<< Updated upstream
-=======
   async getTodoDetails(id: string) {
     try {
       const result = await this.directus.request(
@@ -147,5 +145,4 @@ export class DirectusService {
       throw errorResponse;
     }
   }
->>>>>>> Stashed changes
 }

@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ErrorResponse } from '../interaces/error';
+import { ErrorResponse } from '../../interaces/error';
 
 @Component({
   selector: 'app-create-todo',

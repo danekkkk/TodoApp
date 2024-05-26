@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DirectusService } from '../directus.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Todo } from '../interaces/todo';
+import { Todo } from '../../interaces/todo';
 import { MarkdownComponent, MarkdownService } from 'ngx-markdown';
 import { formatDistanceToNow } from 'date-fns';
 
