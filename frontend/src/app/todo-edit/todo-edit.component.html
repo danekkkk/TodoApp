@@ -1,0 +1,106 @@
+<form
+  [formGroup]="editTodo"
+  style="min-height: 90vh;"
+  autocomplete="false"
+>
+  <div class="shadow-lg rounded-4 overflow-hidden col-12 p-4" style="margin-top: 100px; margin-bottom: 40px;">
+    <h1 class="h1 w-bold">Edit todo</h1>
+    <div formGroupName="details">
+      <div class="mt-4">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          class="form-control"
+          [ngClass]="{
+            'border-danger': title?.invalid && (title?.dirty || title?.touched)
+          }"
+          (input)="resetError()"
+        />
+        <div *ngIf="title?.invalid && (title?.dirty || title?.touched)">
+          <small class="text-danger" *ngIf="title?.errors?.['required']"
+            >Title is required.</small
+          >
+          <small class="text-danger" *ngIf="title?.errors?.['maxlength']"
+            >Title cannot be longer than
+            {{title?.errors?.['maxlength'].requiredLength}} characters.</small
+          >
+        </div>
+      </div>
+      <div class="mt-3">
+        <label for="description">Description <small class="text-success">(markdown available)</small></label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          [ngClass]="{
+            'border-danger':
+              description?.invalid &&
+              (description?.dirty || description?.touched)
+          }"
+          rows="10"
+          (input)="resetError()"
+        >
+        </textarea>
+        <div
+          *ngIf="
+            description?.invalid && (description?.dirty || description?.touched)
+          "
+        >
+          <small class="text-danger" *ngIf="description?.errors?.['required']"
+            >Description is required.</small
+          >
+          <small class="text-danger" *ngIf="description?.errors?.['minlength']"
+            >Description must be longer than
+            {{description?.errors?.['minlength'].requiredLength}}
+            characters.</small
+          >
+        </div>
+      </div>
+      <div class="mt-2">
+        <input
+          id="isImportant"
+          type="checkbox"
+          formControlName="isImportant"
+          (input)="resetError()"
+          class="me-2 form-check-input"
+        />
+        <label for="isImportant">Important</label>
+      </div>
+    </div>
+    <div class="mt-2">
+      <label for="deadline">Deadline</label>
+      <input
+        id="deadline"
+        formControlName="deadline"
+        class="form-control"
+        type="date"
+        [min]="today"
+        [ngClass]="{
+          'border-danger':
+            deadline?.invalid && (deadline?.dirty || deadline?.touched)
+        }"
+        (input)="resetError()"
+      />
+      <div *ngIf="deadline?.invalid && (deadline?.dirty || deadline?.touched)">
+        <small class="text-danger" *ngIf="deadline?.errors?.['required']"
+          >Deadline is required.</small
+        >
+      </div>
+    </div>
+
+    <p *ngIf="error" class="text-danger mt-2">{{ error }}</p>
+
+    <div class="mt-4">
+      <button
+        class="btn btn-success w-100"
+        (click)="onSubmit()"
+        [disabled]="editTodo.invalid"
+      >
+        Edit todo
+      </button>
+
+    </div>
+  </div>
+</form>

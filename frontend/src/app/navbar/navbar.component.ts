@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { DirectusService } from '../directus.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserData } from '../interaces/userData';
-import { ErrorResponse } from '../interaces/error';
+import { UserData } from '../../interaces/userData';
+import { ErrorResponse } from '../../interaces/error';
 
 @Component({
   selector: 'app-navbar',

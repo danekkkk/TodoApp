@@ -20,6 +20,9 @@
     "@angular/router": "^17.2.0",
     "@directus/sdk": "^16.0.0",
     "bootstrap": "^5.3.3",
+    "date-fns": "^3.6.0",
+    "ngx-markdown": "^17.2.1",
+    "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
