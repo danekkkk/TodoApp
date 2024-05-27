@@ -1,0 +1,25 @@
+version: "3"
+services:
+  directus:
+    image: directus/directus:10.10.5
+    ports:
+      - 8055:8055
+    volumes:
+      - ./database:/directus/database
+      - ./uploads:/directus/uploads
+      - ./extensions:/directus/extensions
+    environment:
+      KEY: "T8lIT1F4OdNyEiN7hisyBiasd14adsUJlMVn5JaU"
+      SECRET: "383B91614ACF2686ASDASK19B19AA873BB18"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "fJ14(5a_"
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
+      WEBSOCKETS_ENABLED: "true"
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "http://localhost:4200"
+      CORS_METHODS: "GET,POST,PATCH,DELETE"
+      CORS_ALLOWED_HEADERS: "Content-Type,Authorization"
+      CORS_EXPOSED_HEADERS: "Content-Range"
+      CORS_CREDENTIALS: "true"
+      CORS_MAX_AGE: "18000"
