@@ -80,8 +80,8 @@ export class TodoDetailsComponent implements OnInit {
     await this.router.navigate(['edit', this.todoId]);
   }
 
-  async markAsDone() {
-    await this.directusService.markAsDoneTodo(this.todoId);
+  async markTodoAsDone(markAsDone: boolean) {
+    await this.directusService.markAsDoneTodo(this.todoId, markAsDone);
     await this.router.navigate(['/']);
   }
 }

@@ -18,6 +18,7 @@ export class TodosListComponent implements OnInit {
   incompletedTodos: Todo[] = [];
   todayTodos: Todo[] = [];
   incomingTodos: Todo[] = [];
+  completedTodos: Todo[] = [];
 
   constructor(public directusService: DirectusService, private router: Router) {
     this.today = new Date().toISOString().split('T')[0];
@@ -28,8 +29,10 @@ export class TodosListComponent implements OnInit {
       try {
         const result = await this.directusService.getTodos();
         this.todos = result as Todo[];
-
         this.filterTodosByDeadline();
+        const completed = await this.directusService.getTodos(true);
+        this.completedTodos = completed as Todo[];
+        
       } catch (error) {
         const errorResponse = error as ErrorResponse;
         console.log(errorResponse.errors[0].message);

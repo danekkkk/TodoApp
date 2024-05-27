@@ -16,12 +16,18 @@
         <ul class="dropdown-menu" style="cursor: pointer;">
           <li><a class="dropdown-item text-danger" (click)="deleteTodo()">Delete</a></li>
           <li><a class="dropdown-item" (click)="editTodo()">Edit</a></li>
-          <li><a class="dropdown-item" (click)="markAsDone()">Mark as done</a></li>
+          <li><a class="dropdown-item" *ngIf="!todoDetails?.isDone" (click)="markTodoAsDone(true)">Mark as done</a></li>
+          <li><a class="dropdown-item" *ngIf="todoDetails?.isDone" (click)="markTodoAsDone(false)">Mark as not done</a></li>
         </ul>
       </div>
+    </div>
+    <div *ngIf="todoDetails?.isImportant" class="d-flex flex-row align-items-center">
+      <img src="assets/important.svg" width="18" class="me-2" alt="Important">
+      <span class="text-danger">Important!</span>
     </div>
     <div class="my-3">
         <markdown id="markdown" [data]="todoDetails?.Description"></markdown>
     </div>
+    <small class="mt-5">Deadline: {{todoDetails?.Deadline}}</small>
     
 </div>

@@ -208,11 +208,12 @@ export class DirectusService {
     }
   }
 
-  async markAsDoneTodo(todoId: string) {
+  async markAsDoneTodo(todoId: string, isDone: boolean) {
     try {
+      const isTaskDone = !isDone ? false : true
       const result = await this.directus.request(
         updateItem('Todos', todoId, {
-          isDone: true,
+          isDone: isTaskDone,
         })
       );
 
